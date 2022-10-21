@@ -1,0 +1,55 @@
+import axios from '../api/axios' ////axios Promise API를 활용하는 HTTP 비동기 통신 라이브러리
+import React, { useEffect, useState } from 'react'
+import requests from '../api/requests'
+
+export default function Banner() {
+    const [movie,setmovie] = useState([])
+
+    useEffect( ()=>{
+        fetchdata()
+    }, [])
+
+    const fetchdata = async () => { // 비동기함수
+
+        //상영중인 영화 정보들 가져오기(비동기로 값을 가져오기까지 기다려줘야함)
+        const request = await axios.get(requests.fetchNowPlaying)
+
+        //여러 영화 중 임의의 영화 ID 가져오기
+        const movie_id = request.data.results[Math.floor(Math.random() * request.data.results.length)].id 
+
+        //그 ID의 상세정보 가져오기- data : 값들을 movie_detail에 집어넣기
+        const {data: movie_detail} =  await axios.get(`movie/${movie_id}`, {
+            params: {apend_to_response: "video"}, //비디오정보 가져오기
+        })
+        setmovie(movie_detail)
+    }
+
+    const truncate = (str, n) => {
+        return str?.length > n ? str.substr(0, n-1) + "..." : str  //str?- 있다면 뒤에 코드, substr(시작지점, 수만큼) 문자열 반환
+    }
+
+    return(
+        <header
+            className='banner'
+            style={{
+                backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+                backgroundPosition : "top center",
+                backgroundSize : "cover",
+            }}
+        >
+           <div className='banner__contents'>
+               <h1 className='banner_title'>{movie.title || movie.name || movie.original_name}</h1>
+
+                <div className='banner__buttons'>
+                    <button className='banner__button play'>Play</button>
+                    <button className='banner__button info'>More Information</button>
+                </div>
+                <h1 className='banner__description'>{truncate(movie.overview, 100)}</h1>
+            </div>
+            
+            <div className='banner--fadeBottom'></div>
+
+        </header>
+    )
+}
+

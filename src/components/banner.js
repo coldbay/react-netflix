@@ -1,9 +1,11 @@
 import axios from '../api/axios' ////axios Promise API를 활용하는 HTTP 비동기 통신 라이브러리
 import React, { useEffect, useState } from 'react'
 import requests from '../api/requests'
+import "./banner.css"
 
 export default function Banner() {
     const [movie,setmovie] = useState([])
+    const [isClicked, setIsClicked] = useState(false)
 
     useEffect( ()=>{
         fetchdata()
@@ -28,6 +30,7 @@ export default function Banner() {
         return str?.length > n ? str.substr(0, n-1) + "..." : str  //str?- 있다면 뒤에 코드, substr(시작지점, 수만큼) 문자열 반환
     }
 
+    if(!isClicked){
     return(
         <header
             className='banner'
@@ -41,7 +44,7 @@ export default function Banner() {
                <h1 className='banner_title'>{movie.title || movie.name || movie.original_name}</h1>
 
                 <div className='banner__buttons'>
-                    <button className='banner__button play'>Play</button>
+                    <button className='banner__button play' onClick={() => setIsClicked(true)}>Play</button>
                     <button className='banner__button info'>More Information</button>
                 </div>
                 <h1 className='banner__description'>{truncate(movie.overview, 100)}</h1>
@@ -50,6 +53,13 @@ export default function Banner() {
             <div className='banner--fadeBottom'></div>
 
         </header>
-    )
+    )}
+
+    else{
+        return(
+            <div></div>
+        )
+    }
+    
 }
 

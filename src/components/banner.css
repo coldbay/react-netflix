@@ -3,6 +3,7 @@
     object-fit: contain;
     height: 448px;
   }
+
   @media (min-width: 1500px) {
     .banner {
       position: relative;
@@ -15,6 +16,7 @@
       height: 40rem;
     }
   }
+
   @media (max-width: 768px) {
     .banner__contents {
       width: min-content !important;
@@ -72,7 +74,7 @@
   .banner__button {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     cursor: pointer;
     outline: none;

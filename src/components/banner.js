@@ -2,6 +2,7 @@ import axios from '../api/axios' ////axios Promise API를 활용하는 HTTP 비�
 import React, { useEffect, useState } from 'react'
 import requests from '../api/requests'
 import "./banner.css"
+import styled from 'styled-components'
 
 export default function Banner() {
     const [movie,setmovie] = useState([])
@@ -21,7 +22,7 @@ export default function Banner() {
 
         //그 ID의 상세정보 가져오기- data : 값들을 movie_detail에 집어넣기
         const {data: movie_detail} =  await axios.get(`movie/${movie_id}`, {
-            params: {apend_to_response: "video"}, //비디오정보 가져오기
+            params: {append_to_response: "videos"}, //비디오정보 가져오기
         })
         setmovie(movie_detail)
     }
@@ -57,9 +58,51 @@ export default function Banner() {
 
     else{
         return(
-            <div></div>
+            <Container>
+                <HomeContainer>
+                    <Iframe 
+                    width="640"
+                    height="360"
+                    src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen"
+                    allowfullscreen/>
+                </HomeContainer>
+            </Container>
         )
     }
     
 }
+
+const Iframe = styled.iframe`
+    width: 100%
+    height: 100%
+    z-index: -1
+    opacity: 0.65
+    border: none
+
+    &::after{
+        content:""
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+    }
+`
+
+const Container = styled.div`
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    width: 100%
+    height: 100vh
+`
+
+const HomeContainer = styled.div`
+    width: 100%
+    height: 100%
+`
 

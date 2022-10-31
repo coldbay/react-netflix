@@ -35,8 +35,8 @@ export default function Banner() {
     return(
         <header
             className='banner'
-            style={{
-                backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+            style={{  //movie.backdrop_path를 useEffect하고 가져오는데 시간이 걸림. 그래서 있을때만 이미지를 렌더링
+                backgroundImage: movie.backdrop_path && `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
                 backgroundPosition : "top center",
                 backgroundSize : "cover",
             }}

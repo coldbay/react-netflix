@@ -1,7 +1,7 @@
 import axios from '../api/axios'
 import React, {useEffect, useState} from 'react'
 import "./row.css"
-import MovieModal from './moviemodal'
+import MovieModal from './moviemodal/index'
 
 export default function Row({title, id, fetchUrl, isLargeROW}) {
     
@@ -11,7 +11,7 @@ export default function Row({title, id, fetchUrl, isLargeROW}) {
 
     useEffect( ()=>{
         fetchMovieData()
-    }, [])
+    })
 
     const fetchMovieData = async () => {
         const request = await axios.get(fetchUrl)
@@ -23,7 +23,7 @@ export default function Row({title, id, fetchUrl, isLargeROW}) {
         setMovieSelected(movie)
     }
 
-  return ( //section- 독립적인 영역을 표현하는 태그 (주제별 영역들을 그룹화 하기위해 사용)
+  return ( //section- 독립적인 영역을 표현하는 태그 (주제별 영역들을 그룹화 하기위해 사용) - article과 비교
     <section className='row'> 
         <h2>{title}</h2>
         <div className="slider">
@@ -39,7 +39,7 @@ export default function Row({title, id, fetchUrl, isLargeROW}) {
                 {movies.map(movie => (
                     <img
                         key={movie.id}
-                        onClick={()=>handleClick(movie)}
+                        onClick={() => handleClick(movie)}
                         className={`row__poster ${isLargeROW && "row__posterLarge"}`}
                         src={`https://image.tmdb.org/t/p/original/${isLargeROW ? movie.poster_path : movie.backdrop_path}`}
                         alt={movie.name}
@@ -56,12 +56,13 @@ export default function Row({title, id, fetchUrl, isLargeROW}) {
             </div>
         </div>
 
-        if(modalOpen){
+        {modalOpen && ( //&& 단축평가 -> if문처럼 사용
             <MovieModal
                 {...movieSelected}
-                setModalOpen={setModalOpen} // setModalOpen의 상태(true false) 변경
+                setModalOpen={setModalOpen} // setModalOpen의 상태 변경 인지
             />
-        }
+        )}
+        
 
     </section>
   )

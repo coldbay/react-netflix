@@ -57,17 +57,18 @@ export default function Banner() {
     )}
 
     else{
-        return(
+        return( //?. -> 객체의 속성이 없는 경우, typeError가 발생하지 않고 undefined가 반환됨
             <Container>
                 <HomeContainer>
                     <Iframe 
                     width="640"
                     height="360"
-                    src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
+                    src={`https://www.youtube.com/embed/${movie.videos.results[0]?.key}?controls=&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="autoplay; fullscreen"
-                    allowfullscreen/>
+                    allowFullScreen
+                    />
                 </HomeContainer>
             </Container>
         )
@@ -82,7 +83,7 @@ const Iframe = styled.iframe`
     opacity: 0.65
     border: none
 
-    &::after{
+    ::after{
         content:""
         position: absolute
         top: 0

@@ -1,5 +1,5 @@
 import React from 'react'
-import './modal_index.css';
+import './modal_index.css'
 
 export default function MovieModal({
     backdrop_path,

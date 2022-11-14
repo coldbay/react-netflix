@@ -40,7 +40,7 @@ export default function Nav() {
 
     <input 
       value={searchValue} 
-      onChange={handleChange} 
+      onChange={handleChange}
       className="nav__input" 
       type="text"
       placeholder='영화를 검색해주세요'/>

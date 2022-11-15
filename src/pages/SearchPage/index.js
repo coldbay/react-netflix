@@ -12,9 +12,10 @@ export default function SearchPage() {
   const useQuery = () => {
     return new URLSearchParams(useLocation().search) //현재 객체의 search값 -> "?q=()""
   }
-  // const searchTerm = useQuery().get("q"), q의 값 가져옴, usedebounce() 사용전
 
-  const debouncedSearchTerm = useDebounce(useQuery.get("q"), 500) //딜레이 0.5초
+  const query= useQuery()
+  // const searchTerm = query.get("q") q의 값 가져옴, usedebounce() 사용전
+  const debouncedSearchTerm = useDebounce(query.get("q") , 500) //딜레이 0.5초
 
   useEffect(() => {
     if(debouncedSearchTerm){
@@ -25,7 +26,7 @@ export default function SearchPage() {
   const fetchSearchMovie = async (searchTerm) => {
     try{
         const request = await axios.get(
-            `/search/multi?include_adult=false&query=${searchTerm}`
+            `/search/movie?include_adult=false&query=${searchTerm}`
         )
         console.log(request)
         setSearchResults(request.data.results)
@@ -38,12 +39,12 @@ export default function SearchPage() {
     return searchResults.length > 0 ? (
       <section className="search-container">
         {searchResults.map((movie) => {
-          if(movie.backdrop_path !== null && movie.media_type !== "person") {
+          if(movie.backdrop_path !== null) {
             const movieImageUrl =
             "https://image.tmdb.org/t/p/w500" + movie.backdrop_path
             return(
               <div className="movie" key={movie.id}>
-                <div className="movie__column-poster" onClick={navigate(`/${movie.id}`)}>
+                <div className="movie__column-poster" onClick={() => navigate(`/${movie.id}`)}>
                   <img
                   src={movieImageUrl} alt="movie"
                   className="movie__poster"
@@ -52,9 +53,11 @@ export default function SearchPage() {
               </div>
             )
           }
-          else return(<div>null</div>)
+          else return( //이미지가 없는 영화
+            <div key={movie.id}></div>)
         })}
       </section>
+      
     ) : (
       <section className="no-results">
         <div className="no-results__text">

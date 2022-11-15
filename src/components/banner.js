@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react'
 import requests from '../api/requests'
 import "./banner.css"
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 export default function Banner() {
+
+    const navigate = useNavigate()
     const [movie,setmovie] = useState([])
     const [isClicked, setIsClicked] = useState(false)
 
@@ -46,7 +49,7 @@ export default function Banner() {
 
                 <div className='banner__buttons'>
                     <button className='banner__button play' onClick={() => setIsClicked(true)}>Play</button>
-                    <button className='banner__button info'>More Information</button>
+                    <button className='banner__button info' onClick={() => navigate(`/${movie.id}`)}>More Information</button>
                 </div>
                 <h1 className='banner__description'>{truncate(movie.overview, 100)}</h1>
             </div>

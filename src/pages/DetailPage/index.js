@@ -16,14 +16,18 @@ export default function DetailPage() {
   }, [movieId])
 
   
-  if(!movie) return <div>영화의 이미지가 없습니다.</div>
+  
 
+  if (movie.backdrop_path){
   return (
     <section>
       <img
       className='modal__poster-img'
-      src={`https://image.tmdb.org/t/p/original/movie.backdrop_path`}
+      src= {`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
       alt="poster"/>
     </section>
   )
+}
+
+else return <div>영화의 이미지가 없습니다.</div>
 }

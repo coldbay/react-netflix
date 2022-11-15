@@ -35,7 +35,7 @@ export default function Nav() {
             alt='netflix logo'
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2880px-Netflix_2015_logo.svg.png"
             className='nav_logo'
-            onClick={() => window.location.reload()} // {window.location.reload()} X
+            onClick={() => navigate('/')} // {window.location.reload()} X
         />
 
     <input 

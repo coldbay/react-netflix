@@ -9,7 +9,7 @@ export default function Nav() {
   const navigate = useNavigate()
 
 
-  useEffect(() => {  // 렌더링 될 때마다 특정 작업(Sied effect- 비동기적으로 처리되는)을 실행할 수 있도록 하는 리액트 Hook
+  useEffect(() => {  // 렌더링 될 때마다 특정 작업(Side effect- 비동기적으로 처리되는)을 실행할 수 있도록 하는 리액트 Hook
       window.addEventListener("scroll", () =>
       {
         if(window.scrollY > 50) {

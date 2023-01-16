@@ -8,11 +8,11 @@ import SearchPage from './pages/SearchPage/index';
 
 
 const Layout = () => {
-  return(
+  return( // Outlet - 자식 경로(서브 페이지가 보여질 자리)
     <div>
       <Nav/>
 
-      <Outlet/>
+      <Outlet/> 
 
       <Footer/>
     </div>

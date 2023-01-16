@@ -14,7 +14,7 @@ export default function SearchPage() {
   }
 
   const query= useQuery()
-  // const searchTerm = query.get("q") q의 값 가져옴, usedebounce() 사용전
+  // const searchTerm = query.get("q") q의 값 가져옴, usedebounce() 사용 안한다면
   const debouncedSearchTerm = useDebounce(query.get("q") , 500) //딜레이 0.5초
 
   useEffect(() => {

@@ -85,7 +85,7 @@ useParams로 path에 있는 파라미터(:movieId)를 가져온다.
 
 **path="search" -> SearchPage**
 
-nav에 있는 input값에 따라 검색 결과를 나타내는 페이지
+nav에 있는 input값에 따라 검색 결과를 나타내는 페이지이다.
 
 ```
 ./hook/useDebounce - input에 입력하고 이를 입력결과로 받을때 사이에 delay를 주는 함수 (타이핑할 때마다 처리하지 않아 API 호출 수를 크게 줄여 효율적임)
